@@ -8,6 +8,13 @@
 
 **Input**: User description: "As a todo application user, I want to easily identify and distinguish overdue tasks in my todo list, so that I can prioritize my work and quickly see which tasks are past their due date. Users need a clear, visual way to identify which todos have not been completed by their due date, without having to manually check dates against today's date. This feature must include automated tests covering the overdue determination logic and its display, following the existing Jest patterns in the repository."
 
+## Clarifications
+
+### Session 2026-09-24
+
+- Q: How should an overdue todo be visually distinguished in the list? → A: Show a small "Overdue" text badge/label next to the due date, styled in the existing danger color from `docs/ui-guidelines.md`.
+- Q: Should overdue todos be reordered or grouped, or keep the existing creation-date order? → A: No reordering — overdue todos are only visually marked; list order stays by creation date.
+
 ## User Scenarios & Testing *(mandatory)*
 
 ### User Story 1 - See which todos are overdue at a glance (Priority: P1)
@@ -27,8 +34,8 @@ overdue while todos with future or no due dates are not.
 **Acceptance Scenarios**:
 
 1. **Given** a todo with a due date earlier than today and marked incomplete, **When** the todo
-   list is displayed, **Then** that todo is shown with a distinct overdue indicator (e.g., label
-   and/or color) not applied to non-overdue todos.
+   list is displayed, **Then** that todo is shown with an "Overdue" badge in the existing danger
+   color, not applied to non-overdue todos.
 2. **Given** a todo with a due date earlier than today that is marked complete, **When** the
    todo list is displayed, **Then** that todo is NOT shown as overdue.
 3. **Given** a todo with no due date set, **When** the todo list is displayed, **Then** that
@@ -90,6 +97,9 @@ the list, and confirming the overdue indicator remains visible/accurate during e
 - How does the system handle timezones? Due dates are calendar dates (no time-of-day component);
   a todo becomes overdue starting the day after its due date, evaluated against the user's local
   date.
+- Does the todo list reorder or group overdue items? No — the list retains its existing
+  creation-date ordering (per `docs/functional-requirements.md`); overdue status is a visual
+  marker only.
 
 ## Requirements *(mandatory)*
 
@@ -103,7 +113,8 @@ the list, and confirming the overdue indicator remains visible/accurate during e
 - **FR-004**: System MUST NOT mark a todo as overdue when its due date is the current date
   (due today is not yet overdue).
 - **FR-005**: The todo list view MUST visually distinguish overdue todos from non-overdue todos
-  (e.g., through a label, color, or icon) so a user can identify them without reading dates.
+  by displaying an "Overdue" text badge next to the due date, styled using the existing danger
+  color defined in `docs/ui-guidelines.md`, so a user can identify them without reading dates.
 - **FR-006**: The overdue determination MUST be re-evaluated every time the todo list is
   rendered, based on the current date, rather than being fixed at todo-creation time.
 - **FR-007**: The overdue indicator MUST remain accurate and visible in any view where an
@@ -111,6 +122,8 @@ the list, and confirming the overdue indicator remains visible/accurate during e
 - **FR-008**: The feature MUST include automated tests covering the overdue-determination logic
   (unit tests) and its visual display (component/integration tests), following the existing Jest
   patterns already used in this repository.
+- **FR-009**: The feature MUST NOT change the existing todo list ordering (creation date,
+  newest first); overdue todos are marked in place, not moved or grouped.
 
 ### Key Entities
 
