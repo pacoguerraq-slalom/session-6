@@ -99,4 +99,44 @@ describe('TodoCard Component', () => {
     
     expect(screen.queryByText(/Due:/)).not.toBeInTheDocument();
   });
+
+  describe('overdue indicator', () => {
+    it('should show the Overdue badge for an incomplete todo with a past due date', () => {
+      const overdueTodo = { ...mockTodo, dueDate: '2020-01-01', completed: 0 };
+      render(<TodoCard todo={overdueTodo} {...mockHandlers} isLoading={false} />);
+
+      expect(screen.getByText('Overdue')).toBeInTheDocument();
+    });
+
+    it('should not show the Overdue badge for a completed todo with a past due date', () => {
+      const completedPastDueTodo = { ...mockTodo, dueDate: '2020-01-01', completed: 1 };
+      render(<TodoCard todo={completedPastDueTodo} {...mockHandlers} isLoading={false} />);
+
+      expect(screen.queryByText('Overdue')).not.toBeInTheDocument();
+    });
+
+    it('should not show the Overdue badge for a todo with no due date', () => {
+      const todoNoDate = { ...mockTodo, dueDate: null, completed: 0 };
+      render(<TodoCard todo={todoNoDate} {...mockHandlers} isLoading={false} />);
+
+      expect(screen.queryByText('Overdue')).not.toBeInTheDocument();
+    });
+
+    it('should not show the Overdue badge when the due date is today', () => {
+      const today = new Date().toISOString().split('T')[0];
+      const dueTodayTodo = { ...mockTodo, dueDate: today, completed: 0 };
+      render(<TodoCard todo={dueTodayTodo} {...mockHandlers} isLoading={false} />);
+
+      expect(screen.queryByText('Overdue')).not.toBeInTheDocument();
+    });
+
+    it('should keep the Overdue badge visible when editing an overdue todo', () => {
+      const overdueTodo = { ...mockTodo, dueDate: '2020-01-01', completed: 0 };
+      render(<TodoCard todo={overdueTodo} {...mockHandlers} isLoading={false} />);
+
+      fireEvent.click(screen.getByLabelText(/Edit/));
+
+      expect(screen.getByText('Overdue')).toBeInTheDocument();
+    });
+  });
 });

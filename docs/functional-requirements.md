@@ -23,6 +23,7 @@ A simple, single-user todo application that allows users to create, manage, and 
   - Todo title
   - Due date (if set)
   - Completion status (checked/unchecked)
+  - Overdue indicator: incomplete todos with a due date earlier than today show an "Overdue" badge
 - **Ordering**: Todos are displayed in order of creation date (newest first)
 
 #### 1.3 Update Todo Status

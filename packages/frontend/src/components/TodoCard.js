@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { isOverdue } from '../utils/overdue';
 
 function TodoCard({ todo, onToggle, onEdit, onDelete, isLoading }) {
   const [isEditing, setIsEditing] = useState(false);
@@ -84,6 +85,7 @@ function TodoCard({ todo, onToggle, onEdit, onDelete, isLoading }) {
             disabled={isLoading}
             aria-label="Edit due date"
           />
+          {isOverdue(todo) && <span className="overdue-badge">Overdue</span>}
           <div className="edit-actions">
             <button
               onClick={handleEditSubmit}
@@ -122,6 +124,7 @@ function TodoCard({ todo, onToggle, onEdit, onDelete, isLoading }) {
         {todo.dueDate && (
           <p className="todo-due-date">
             Due: {formatDate(todo.dueDate)}
+            {isOverdue(todo) && <span className="overdue-badge">Overdue</span>}
           </p>
         )}
       </div>

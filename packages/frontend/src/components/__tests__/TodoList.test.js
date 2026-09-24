@@ -59,4 +59,19 @@ describe('TodoList Component', () => {
     expect(screen.getAllByLabelText(/Edit/)).toHaveLength(2);
     expect(screen.getAllByLabelText(/Delete/)).toHaveLength(2);
   });
+
+  it('should preserve todo order even when the list contains overdue items', () => {
+    const todosWithOverdue = [
+      { id: 1, title: 'Newest', dueDate: null, completed: 0, createdAt: '2025-11-03T00:00:00Z' },
+      { id: 2, title: 'Overdue Todo', dueDate: '2020-01-01', completed: 0, createdAt: '2025-11-02T00:00:00Z' },
+      { id: 3, title: 'Oldest', dueDate: null, completed: 0, createdAt: '2025-11-01T00:00:00Z' },
+    ];
+
+    const { container } = render(
+      <TodoList todos={todosWithOverdue} {...mockHandlers} isLoading={false} />
+    );
+
+    const titles = Array.from(container.querySelectorAll('.todo-title')).map((el) => el.textContent);
+    expect(titles).toEqual(['Newest', 'Overdue Todo', 'Oldest']);
+  });
 });

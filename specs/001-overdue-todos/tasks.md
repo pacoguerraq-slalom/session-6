@@ -28,7 +28,7 @@ feature is frontend-only — no `packages/backend` paths are touched.
 
 **Purpose**: Confirm the existing frontend toolchain is ready; no new dependencies are needed.
 
-- [ ] T001 Run `npm run test:frontend` from the repo root to confirm the existing suite passes before making changes (baseline check, no code changes)
+- [X] T001 Run `npm run test:frontend` from the repo root to confirm the existing suite passes before making changes (baseline check, no code changes)
 
 ---
 
@@ -38,9 +38,9 @@ feature is frontend-only — no `packages/backend` paths are touched.
 
 **⚠️ CRITICAL**: No user story work can begin until this phase is complete.
 
-- [ ] T002 [P] Create `packages/frontend/src/utils/overdue.js` exporting `isOverdue(todo, referenceDate = new Date())`, returning `true` only when `todo.completed` is falsy, `todo.dueDate` is set, and `dueDate` is strictly earlier (calendar date comparison) than `referenceDate`
-- [ ] T003 [P] Write unit tests in `packages/frontend/src/utils/__tests__/overdue.test.js` covering: no due date, due date today, due date yesterday, due date tomorrow, and completed todo with a past due date
-- [ ] T004 [P] Add a `.overdue-badge` style rule to `packages/frontend/src/App.css` using `color: var(--danger-color)` and existing spacing tokens, matching the clarified badge design in `spec.md`
+- [X] T002 [P] Create `packages/frontend/src/utils/overdue.js` exporting `isOverdue(todo, referenceDate = new Date())`, returning `true` only when `todo.completed` is falsy, `todo.dueDate` is set, and `dueDate` is strictly earlier (calendar date comparison) than `referenceDate`
+- [X] T003 [P] Write unit tests in `packages/frontend/src/utils/__tests__/overdue.test.js` covering: no due date, due date today, due date yesterday, due date tomorrow, and completed todo with a past due date
+- [X] T004 [P] Add a `.overdue-badge` style rule to `packages/frontend/src/App.css` using `color: var(--danger-color)` and existing spacing tokens, matching the clarified badge design in `spec.md`
 
 **Checkpoint**: Foundation ready — `isOverdue` is unit-tested and the badge style exists; user story implementation can now begin.
 
@@ -56,14 +56,14 @@ feature is frontend-only — no `packages/backend` paths are touched.
 
 > Write these tests FIRST, ensure they FAIL before implementation
 
-- [ ] T005 [P] [US1] Add test to `packages/frontend/src/components/__tests__/TodoCard.test.js`: renders "Overdue" badge for an incomplete todo with a past `dueDate`
-- [ ] T006 [P] [US1] Add test to `packages/frontend/src/components/__tests__/TodoCard.test.js`: does NOT render the badge for a completed todo with a past `dueDate`
-- [ ] T007 [P] [US1] Add test to `packages/frontend/src/components/__tests__/TodoCard.test.js`: does NOT render the badge for a todo with no `dueDate`
+- [X] T005 [P] [US1] Add test to `packages/frontend/src/components/__tests__/TodoCard.test.js`: renders "Overdue" badge for an incomplete todo with a past `dueDate`
+- [X] T006 [P] [US1] Add test to `packages/frontend/src/components/__tests__/TodoCard.test.js`: does NOT render the badge for a completed todo with a past `dueDate`
+- [X] T007 [P] [US1] Add test to `packages/frontend/src/components/__tests__/TodoCard.test.js`: does NOT render the badge for a todo with no `dueDate`
 
 ### Implementation for User Story 1
 
-- [ ] T008 [US1] Import `isOverdue` in `packages/frontend/src/components/TodoCard.js` and conditionally render `<span className="overdue-badge">Overdue</span>` next to the due date text in the non-editing view (depends on T002, T004)
-- [ ] T009 [US1] Run `npm run test:frontend` and confirm T005–T007 now pass
+- [X] T008 [US1] Import `isOverdue` in `packages/frontend/src/components/TodoCard.js` and conditionally render `<span className="overdue-badge">Overdue</span>` next to the due date text in the non-editing view (depends on T002, T004)
+- [X] T009 [US1] Run `npm run test:frontend` and confirm T005–T007 now pass
 
 **Checkpoint**: User Story 1 is fully functional and testable independently — this is the MVP.
 
@@ -77,12 +77,12 @@ feature is frontend-only — no `packages/backend` paths are touched.
 
 ### Tests for User Story 2 ⚠️
 
-- [ ] T010 [P] [US2] Add test to `packages/frontend/src/utils/__tests__/overdue.test.js`: `isOverdue` returns `false` when `referenceDate` equals `dueDate` (due today), and `true` when `referenceDate` is one day after `dueDate`, using explicit `referenceDate` arguments (no system clock mocking)
-- [ ] T011 [P] [US2] Add test to `packages/frontend/src/components/__tests__/TodoCard.test.js`: re-rendering `TodoCard` with an unchanged todo but a later current date shows the badge without any prop other than the date changing
+- [X] T010 [P] [US2] Add test to `packages/frontend/src/utils/__tests__/overdue.test.js`: `isOverdue` returns `false` when `referenceDate` equals `dueDate` (due today), and `true` when `referenceDate` is one day after `dueDate`, using explicit `referenceDate` arguments (no system clock mocking)
+- [X] T011 [P] [US2] Add test to `packages/frontend/src/components/__tests__/TodoCard.test.js`: re-rendering `TodoCard` with an unchanged todo but a later current date shows the badge without any prop other than the date changing
 
 ### Implementation for User Story 2
 
-- [ ] T012 [US2] Confirm `TodoCard` calls `isOverdue(todo)` (defaulting `referenceDate` to `new Date()`) directly in the render body rather than in `useState`/`useMemo` with a stale dependency, so status is recomputed on every render (verify/adjust `packages/frontend/src/components/TodoCard.js`)
+- [X] T012 [US2] Confirm `TodoCard` calls `isOverdue(todo)` (defaulting `referenceDate` to `new Date()`) directly in the render body rather than in `useState`/`useMemo` with a stale dependency, so status is recomputed on every render (verify/adjust `packages/frontend/src/components/TodoCard.js`)
 
 **Checkpoint**: User Stories 1 AND 2 both work independently — overdue status is correct today and stays correct as dates pass.
 
@@ -96,11 +96,11 @@ feature is frontend-only — no `packages/backend` paths are touched.
 
 ### Tests for User Story 3 ⚠️
 
-- [ ] T013 [P] [US3] Add test to `packages/frontend/src/components/__tests__/TodoCard.test.js`: clicking "Edit" on an overdue todo keeps the "Overdue" badge visible in the edit-mode view
+- [X] T013 [P] [US3] Add test to `packages/frontend/src/components/__tests__/TodoCard.test.js`: clicking "Edit" on an overdue todo keeps the "Overdue" badge visible in the edit-mode view
 
 ### Implementation for User Story 3
 
-- [ ] T014 [US3] Render the same `<span className="overdue-badge">Overdue</span>` (via `isOverdue`) in the edit-mode branch of `packages/frontend/src/components/TodoCard.js`, next to the due-date input (depends on T002, T004, T008)
+- [X] T014 [US3] Render the same `<span className="overdue-badge">Overdue</span>` (via `isOverdue`) in the edit-mode branch of `packages/frontend/src/components/TodoCard.js`, next to the due-date input (depends on T002, T004, T008)
 
 **Checkpoint**: All three user stories are independently functional and tested.
 
@@ -110,9 +110,10 @@ feature is frontend-only — no `packages/backend` paths are touched.
 
 **Purpose**: Final consistency checks across all stories.
 
-- [ ] T015 [P] Add a one-line mention of the overdue indicator to `docs/functional-requirements.md` under Todo Item Management, per Constitution Principle V (Documentation Discipline)
-- [ ] T016 Run `npm run test:frontend` (full suite) and confirm all new and existing tests pass with no regressions
-- [ ] T017 Manually run through all 6 scenarios in `specs/001-overdue-todos/quickstart.md` against `npm start`
+- [X] T015 [P] Add a one-line mention of the overdue indicator to `docs/functional-requirements.md` under Todo Item Management, per Constitution Principle V (Documentation Discipline)
+- [X] T016 [P] Add test to `packages/frontend/src/components/__tests__/TodoList.test.js` confirming a list containing overdue and non-overdue todos still renders in the exact order the `todos` prop was given (covers FR-009 — no reordering/grouping)
+- [X] T017 Run `npm run test:frontend` (full suite) and confirm all new and existing tests pass with no regressions
+- [X] T018 Manually run through all 6 scenarios in `specs/001-overdue-todos/quickstart.md` against `npm start`
 
 ---
 
